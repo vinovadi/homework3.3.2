@@ -22,36 +22,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
         initSpinnerLanguages();
+        changeLocalisation();
     }
 
     public void initViews() {
         mLanguagesSpinner = findViewById(R.id.spnLangs);
         mApplyBtn = findViewById(R.id.btnApply);
-
-        mApplyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedLang = mLanguagesSpinner.getSelectedItemPosition();
-                Configuration config = new Configuration();
-                Locale locale = new Locale("ru");
-                Locale locale1 = new Locale("en");
-                Locale locale2 = new Locale("de");
-                switch (selectedLang) {
-                    case 0:
-                        config.setLocale(locale);
-                        getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-                        recreate();
-                    case 1:
-                        config.setLocale(locale1);
-                        getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-                        recreate();
-                    case 2:
-                        config.setLocale(locale2);
-                        getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-                        recreate();
-                }
-            }
-        });
     }
 
     public void initSpinnerLanguages() {
@@ -68,5 +44,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void changeLocalisation() {
+        mApplyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String selectedLang = mLanguagesSpinner.getSelectedItem().toString();
+                Configuration config = new Configuration();
+                switch (selectedLang) {
+                    case "Русский":
+                        Locale locale = new Locale("ru");
+                        config.setLocale(locale);
+                        getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                        recreate();
+                        break;
+                    case "English":
+                        Locale locale1 = new Locale("en");
+                        config.setLocale(locale1);
+                        getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                        recreate();
+                        break;
+                    case "Deutsch":
+                        Locale locale2 = new Locale("de");
+                        config.setLocale(locale2);
+                        getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                        recreate();
+                        break;
+                }
+            }
+        });
     }
 }
